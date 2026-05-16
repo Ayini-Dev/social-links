@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michael Rarawa | Independent Software Developer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #06111f;
+      --bg-secondary: #0b1728;
+      --card-bg: rgba(10, 20, 35, 0.72);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.18);
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.16), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(14,165,233,0.12), transparent 25%),
+        linear-gradient(to bottom, #06111f, #081221, #020617);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at center, black, transparent 90%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wave {
+      position: absolute;
+      width: 100%;
+      height: 220px;
+      opacity: 0.08;
+      background: url('https://svgshare.com/i/15jV.svg') repeat-x;
+      background-size: cover;
+      bottom: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 24px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+      min-height: 90vh;
+    }
+
+    .hero-text {
+      animation: fadeUp 1s ease;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.08);
+      border: 1px solid rgba(56,189,248,0.2);
+      color: #7dd3fc;
+      font-size: 0.92rem;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .tag::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 10px #38bdf8;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 5.6rem);
+      line-height: 0.95;
+      font-weight: 800;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #38bdf8, #7dd3fc, #f8fafc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 1.08rem;
+      line-height: 1.8;
+      max-width: 650px;
+      margin-bottom: 32px;
+    }
+
+    .fiji-highlight {
+      color: #7dd3fc;
+      font-weight: 600;
+    }
+
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 34px;
+}
+
+    .btn {
+      text-decoration: none;
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-weight: 600;
+      transition: 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #0ea5e9, #38bdf8);
+      color: white;
+      box-shadow: 0 10px 35px rgba(56,189,248,0.35);
+
+      padding: 18px 34px;
+      font-size: 1rem;
+      letter-spacing: 0.3px;
+}
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(56,189,248,0.5);
+    }
+
+    .stats {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .stat h3 {
+      font-size: 1.8rem;
+      color: #7dd3fc;
+      margin-bottom: 6px;
+    }
+
+    .stat p {
+      font-size: 0.92rem;
+      margin: 0;
+      color: #94a3b8;
+    }
+
+    .profile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 34px;
+      backdrop-filter: blur(22px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 1s ease;
+    }
+
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom right, rgba(56,189,248,0.12), transparent 40%);
+      pointer-events: none;
+    }
+
+    .profile-image {
+      width: calc(100% + 68px);
+      height: 240px;
+      object-fit: cover;
+
+      margin:
+      -34px
+      -34px
+       24px
+      -34px;
+
+      border-radius: 30px 30px 0 0;
+
+      border-bottom: 1px solid rgba(56,189,248,0.2);
+
+      box-shadow: 0 10px 30px rgba(56,189,248,0.15);
+}
+
+    .profile-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .location {
+      color: #7dd3fc;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+
+    .services {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .service {
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.05);
+      color: #e2e8f0;
+      font-size: 0.96rem;
+    }
+
+    .links {
+      display: grid;
+      gap: 14px;
+    }
+
+    .link-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .link-card:hover {
+      transform: translateX(6px);
+      border-color: rgba(56,189,248,0.3);
+      background: rgba(56,189,248,0.08);
+      box-shadow: 0 10px 30px rgba(56,189,248,0.12);
+    }
+
+    .link-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(56,189,248,0.12);
+      font-size: 1.2rem;
+    }
+
+    .link-text h4 {
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+
+    .link-text p {
+      margin: 0;
+      font-size: 0.84rem;
+      color: #94a3b8;
+    }
+
+    .arrow {
+      color: #7dd3fc;
+      font-size: 1.1rem;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .footer span {
+      color: #7dd3fc;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 40px;
+      }
+
+      h1 {
+        font-size: 3.8rem;
+      }
+
+      .profile-card {
+        max-width: 580px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 3rem;
+        letter-spacing: -2px;
+      }
+
+      .container {
+        padding: 20px 18px 60px;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .stats {
+        gap: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <section class="hero">
+
+      <div class="hero-text">
+        <div class="tag">
+          Offering Services Worldwide
+        </div>
+
+        <h1>
+          Building Software That
+          <span class="gradient-text">Grows Businesses</span>
+        </h1>
+
+        <p>
+          I'm <strong>Michael Rarawa</strong>, a software developer creating modern websites,
+          automation systems, tools, and digital experiences for businesses worldwide.
+          Inspired by the calm precision and resilience of the <span class="fiji-highlight">Pacific islands of Fiji</span>,
+          I combine clean engineering with thoughtful design that helps brands grow and attract customers.
+        </p>
+
+        <div class="cta-group">
+          <a class="btn btn-primary"
+             href="https://mail.google.com/mail/?view=cm&fs=1&to=AyiniRarawa@gmail.com"
+             target="_blank">
+            Let's Build Something
+          </a>
+          </div>
+
+        <div class="stats">
+          <div class="stat">
+            <h3>Websites</h3>
+            <p>Modern business websites</p>
+          </div>
+
+          <div class="stat">
+            <h3>Automation</h3>
+            <p>Smart workflow systems</p>
+          </div>
+
+          <div class="stat">
+            <h3>Global</h3>
+            <p>Remote client solutions</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <img
+          class="profile-image"
+          src="assets\ChatGPT Image May 16, 2026, 04_01_14 PM.png"
+          alt="Michael Rarawa"
+        />
+
+        <h2>Michael Rarawa</h2>
+
+        <div class="location">
+          📍 UK-based developer - Remote Worldwide
+        </div>
+
+        <div class="services">
+          <div class="service">⚡ High-performance business websites</div>
+          <div class="service">🤖 Automated tools & workflows</div>
+          <div class="service">🛒 E-commerce & booking systems</div>
+          <div class="service">📱 Digital advertising</div>
+        </div>
+
+        <div class="links">
+
+          <a class="link-card" href="https://github.com/Ayini-Dev" target="_blank">
+            <div class="link-info">
+              <div class="icon">💻</div>
+              <div class="link-text">
+                <h4>GitHub</h4>
+                <p>View my code and technical builds</p>
+              </div>
+            </div>
+
+            <div class="arrow">→</div>
+          </a>
+
+          <a class="link-card" href="https://www.linkedin.com/in/michaelrarawa/" target="_blank">
+            <div class="link-info">
+              <div class="icon">💼</div>
+              <div class="link-text">
+                <h4>LinkedIn</h4>
+                <p>Professional background & networking</p>
+              </div>
+            </div>
+
+            <div class="arrow">→</div>
+          </a>
+
+          <a class="link-card"
+             href="https://mail.google.com/mail/?view=cm&fs=1&to=AyiniRarawa@gmail.com"
+             target="_blank">
+            <div class="link-info">
+              <div class="icon">📧</div>
+              <div class="link-text">
+                <h4>Contact Me</h4>
+                <p>Let's discuss your next project</p>
+              </div>
+            </div>
+
+            <div class="arrow">→</div>
+          </a>
+
+        </div>
+      </div>
+
+    </section>
+
+    <div class="footer">
+      Crafted with precision by <span>Michael Rarawa</span> 
+    </div>
+
+  </div>
+
+  <div class="wave"></div>
+</body>
+</html>
